@@ -1,4 +1,4 @@
 # ml-serverless-deployment
 Google Cloud Functions
 
-Evaluation the performance of FasText models in GCP
+Evaluation the performance of FastText models in GCP
