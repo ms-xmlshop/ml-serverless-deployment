@@ -15,7 +15,7 @@ from text_preprocessing import prepare_description
 # nltk.download('wordnet')
 # nltk.download('averaged_perceptron_tagger')
 
-# # spaCy model download for English
+# spaCy model download for English
 nlp = spacy.load("en_core_web_lg")
 
 # Words avoid for lemmatization
@@ -35,16 +35,13 @@ def get_categories_dict():
             categories[line.split('\t')[0]] = line.split('\t')[1].strip()
     return categories 
 
-
 def call_hs2_model(input_text, predict_k=1):
     text = prepare_description(input_text)
     model_dir = '/root/external_copy/2'
     model = fasttext.load_model(f'{model_dir}/hs_model.bin')
     results = model.predict(text, k=predict_k)
-
     response_data = []
     categories = get_categories_dict()
-
     used_codes = []
     for i in range(len(results[0])):
         label = results[0][i].split('__l__')[1][0:2]
@@ -52,17 +49,13 @@ def call_hs2_model(input_text, predict_k=1):
 
         if label in used_codes:
             continue
-
         used_codes.append(label)
-
         response_data_append = {
             'probability': probability,
             'code': label.strip(),
             'name': categories[label].strip(),
         }
-
         response_data.append(response_data_append)
-
     return response_data
 
 
