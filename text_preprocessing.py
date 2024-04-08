@@ -101,3 +101,10 @@ def prepare_description(description):
     description = re.sub(r'\s+', ' ', description)
     return description
 
+def get_categories_dict(path_to_categories='./categories.txt'):
+  categories = {}
+  with open(f'./categories.txt', 'r') as f:
+      lines = f.readlines()
+      for line in lines:
+          categories[line.split('\t')[0]] = line.split('\t')[1].strip()
+  return categories
